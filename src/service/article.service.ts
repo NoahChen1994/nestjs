@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { isNil } from 'lodash';
-import { ArticleEntity } from 'src/entity/article.entity';
+import { ArticleDto } from 'src/dto/article.dto';
 
-let articels: ArticleEntity[] = [
+let articels: ArticleDto[] = [
     { title: '第一篇文章标题', body: '第一篇文章内容' },
     { title: '第二篇文章标题', body: '第二篇文章内容' },
     { title: '第三篇文章标题', body: '第三篇文章内容' },
@@ -24,7 +24,7 @@ export class ArticleService {
         return 'opration succ';
     }
 
-    updateById(update: ArticleEntity) {
+    updateById(update: ArticleDto) {
         console.log(update.id);
         let old = articels.find((i) => i.id === Number(update.id));
         if (isNil(old)) {
@@ -37,8 +37,8 @@ export class ArticleService {
         return old;
     }
 
-    store(data: ArticleEntity): ArticleEntity {
-        const newEntity: ArticleEntity = {
+    store(data: ArticleDto): ArticleDto {
+        const newEntity: ArticleDto = {
             id: Math.max(...articels.map(({ id }) => id + 1)),
             ...data,
         };
@@ -55,7 +55,7 @@ export class ArticleService {
         return item;
     }
 
-    list(): ArticleEntity[] {
+    list(): ArticleDto[] {
         return articels;
     }
 }
